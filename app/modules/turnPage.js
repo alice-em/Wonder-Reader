@@ -56,7 +56,7 @@ const turnPage = ({
     newPageIndex = currentPageIndex - 2;
     pagesToDisplay = 2;
   }
-  return { newPageIndex, pagesToDisplay };
+  return [newPageIndex, pagesToDisplay];
 };
 
 export default turnPage;

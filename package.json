@@ -223,6 +223,7 @@
     "@babel/runtime": "7.0.0-beta.55",
     "devtron": "1.4.0",
     "electron-debug": "3.0.1",
+    "eslint-plugin-security": "^1.4.0",
     "font-awesome": "4.7.0",
     "history": "4.7.2",
     "is-rar": "^2.0.0",

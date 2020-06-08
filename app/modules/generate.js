@@ -5,7 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const sizeOf = require('image-size');
 
-const joinPathWithContent = content => file => path.join(content.fullpath, file);
+const joinPathWithContent = content => file =>
+  path.join(content.fullpath, file);
 
 // function variables
 // const sortNumber = (a, b) => a - b;
@@ -55,7 +56,7 @@ const generateContents = (content, cb) => {
   }
 };
 
-const generateNestedContentFromFilepath = (filepath, cb) => {
+const generateNestedContentFromFilepath = cb => (filepath) => {
   const content = generateContent(filepath);
   generateContents(content, (err, contents) => {
     content.contents = contents;

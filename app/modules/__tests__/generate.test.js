@@ -103,7 +103,7 @@ describe('generate', () => {
 
   describe('generateNestedContentFromFilepath', () => {
     it('should generate content', (done) => {
-      generateNestedContentFromFilepath(__dirname, (content) => {
+      generateNestedContentFromFilepath((content) => {
         expect(content).toEqual({
           basename: '__tests__',
           bookmark: NaN,
@@ -115,7 +115,7 @@ describe('generate', () => {
           isDirectory: true,
         });
         done();
-      });
+      })(__dirname);
     });
   });
 });

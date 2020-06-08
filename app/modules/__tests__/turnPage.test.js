@@ -1,9 +1,11 @@
 import turnPage from '../turnPage';
 
-const generateTurnPageData = (newPageIndex, pagesToDisplay) => ({
+// Test data is limited in scope, so a lot of generated numbers that tend to
+// overlap when using single-digit numbers.
+const generateTurnPageData = (newPageIndex, pagesToDisplay) => [
   newPageIndex,
   pagesToDisplay,
-});
+];
 
 describe('turnPage', () => {
   it('turns a page right', () => {
@@ -11,10 +13,12 @@ describe('turnPage', () => {
       currentPageIndex: 0,
       centerfolds: [],
       pageCount: 1,
-      pages: [0, 1, 2, 3],
+      pages: ['a', 'b', 'c', 'd'],
       polarity: 1,
     };
-    expect(turnPage(state)).toEqual(generateTurnPageData(1, 1));
+    const turnPageData = turnPage(state);
+    expect(turnPageData).toEqual(generateTurnPageData(1, 1));
+    expect(state.pages[turnPageData[0]]).toBe('b');
   });
 
   it('turns a page left', () => {
@@ -22,10 +26,12 @@ describe('turnPage', () => {
       currentPageIndex: 2,
       centerfolds: [],
       pageCount: 1,
-      pages: [0, 1, 2, 3],
+      pages: ['a', 'b', 'c', 'd'],
       polarity: -1,
     };
-    expect(turnPage(state)).toEqual(generateTurnPageData(1, 1));
+    const turnPageData = turnPage(state);
+    expect(turnPageData).toEqual(generateTurnPageData(1, 1));
+    expect(state.pages[turnPageData[0]]).toBe('b');
   });
 
   it('turns to the last page', () => {
@@ -33,10 +39,12 @@ describe('turnPage', () => {
       currentPageIndex: 3,
       centerfolds: [],
       pageCount: 1,
-      pages: [0, 1, 2, 3],
+      pages: ['a', 'b', 'c', 'd'],
       polarity: 1,
     };
-    expect(turnPage(state)).toEqual(generateTurnPageData(3, 1));
+    const turnPageData = turnPage(state);
+    expect(turnPageData).toEqual(generateTurnPageData(3, 1));
+    expect(state.pages[turnPageData[0]]).toBe('d');
   });
 
   it('turns to the first page', () => {
@@ -44,10 +52,12 @@ describe('turnPage', () => {
       currentPageIndex: 0,
       centerfolds: [],
       pageCount: 2,
-      pages: [0, 1, 2, 3],
+      pages: ['a', 'b', 'c', 'd'],
       polarity: -1,
     };
-    expect(turnPage(state)).toEqual(generateTurnPageData(0, 2));
+    const turnPageData = turnPage(state);
+    expect(turnPageData).toEqual(generateTurnPageData(0, 2));
+    expect(state.pages[turnPageData[0]]).toBe('a');
   });
 
   it('turns to the second page if first page is a centerfold', () => {
@@ -55,10 +65,12 @@ describe('turnPage', () => {
       currentPageIndex: 1,
       centerfolds: [0],
       pageCount: 2,
-      pages: [0, 1, 2, 3],
+      pages: ['a', 'b', 'c', 'd'],
       polarity: -1,
     };
-    expect(turnPage(state)).toEqual(generateTurnPageData(0, 1));
+    const turnPageData = turnPage(state);
+    expect(turnPageData).toEqual(generateTurnPageData(0, 1));
+    expect(state.pages[turnPageData[0]]).toBe('a');
   });
 
   describe('Complex Positive Polarity Conditionals', () => {
@@ -68,10 +80,12 @@ describe('turnPage', () => {
         currentPageIndex: 0,
         centerfolds: [0],
         pageCount: 2,
-        pages: [0, 1, 2, 3],
+        pages: ['a', 'b', 'c', 'd'],
         polarity,
       };
-      expect(turnPage(state)).toEqual(generateTurnPageData(1, 2));
+      const turnPageData = turnPage(state);
+      expect(turnPageData).toEqual(generateTurnPageData(1, 2));
+      expect(state.pages[turnPageData[0]]).toBe('b');
     });
 
     it('renders on relative upcoming centerfolds', () => {
@@ -79,10 +93,12 @@ describe('turnPage', () => {
         currentPageIndex: 0,
         centerfolds: [0, 1],
         pageCount: 2,
-        pages: [0, 1, 2, 3],
+        pages: ['a', 'b', 'c', 'd'],
         polarity,
       };
-      expect(turnPage(state)).toEqual(generateTurnPageData(1, 1));
+      const turnPageData = turnPage(state);
+      expect(turnPageData).toEqual(generateTurnPageData(1, 1));
+      expect(state.pages[turnPageData[0]]).toBe('b');
     });
 
     it('renders if the next page is a centerfold', () => {
@@ -90,10 +106,12 @@ describe('turnPage', () => {
         currentPageIndex: 0,
         centerfolds: [1],
         pageCount: 2,
-        pages: [0, 1, 2, 3],
+        pages: ['a', 'b', 'c', 'd'],
         polarity,
       };
-      expect(turnPage(state)).toEqual(generateTurnPageData(1, 1));
+      const turnPageData = turnPage(state);
+      expect(turnPageData).toEqual(generateTurnPageData(1, 1));
+      expect(state.pages[turnPageData[0]]).toBe('b');
     });
 
     it('anticipates if there is a centerfold 2 pages from currentPageIndex', () => {
@@ -101,10 +119,12 @@ describe('turnPage', () => {
         currentPageIndex: 0,
         centerfolds: [2],
         pageCount: 2,
-        pages: [0, 1, 2, 3],
+        pages: ['a', 'b', 'c', 'd'],
         polarity,
       };
-      expect(turnPage(state)).toEqual(generateTurnPageData(2, 1));
+      const turnPageData = turnPage(state);
+      expect(turnPageData).toEqual(generateTurnPageData(2, 1));
+      expect(state.pages[turnPageData[0]]).toBe('c');
     });
 
     it('renders complex equations if it fails other positive polarity patterns', () => {
@@ -112,10 +132,12 @@ describe('turnPage', () => {
         currentPageIndex: 0,
         centerfolds: [],
         pageCount: 2,
-        pages: [0, 1, 2, 3],
+        pages: ['a', 'b', 'c', 'd'],
         polarity,
       };
-      expect(turnPage(state)).toEqual(generateTurnPageData(2, 2));
+      const turnPageData = turnPage(state);
+      expect(turnPageData).toEqual(generateTurnPageData(2, 2));
+      expect(state.pages[turnPageData[0]]).toBe('c');
     });
   });
 
@@ -126,10 +148,12 @@ describe('turnPage', () => {
         currentPageIndex: 2,
         centerfolds: [0],
         pageCount: 2,
-        pages: [0, 1, 2, 3],
+        pages: ['a', 'b', 'c', 'd'],
         polarity,
       };
-      expect(turnPage(state)).toEqual(generateTurnPageData(1, 1));
+      const turnPageData = turnPage(state);
+      expect(turnPageData).toEqual(generateTurnPageData(1, 1));
+      expect(state.pages[turnPageData[0]]).toBe('b');
     });
 
     it('Goes back two pages if it fails all other scenarios', () => {
@@ -137,10 +161,12 @@ describe('turnPage', () => {
         currentPageIndex: 2,
         centerfolds: [],
         pageCount: 2,
-        pages: [0, 1, 2, 3],
+        pages: ['a', 'b', 'c', 'd'],
         polarity,
       };
-      expect(turnPage(state)).toEqual(generateTurnPageData(0, 2));
+      const turnPageData = turnPage(state);
+      expect(turnPageData).toEqual(generateTurnPageData(0, 2));
+      expect(state.pages[turnPageData[0]]).toBe('a');
     });
   });
 });
