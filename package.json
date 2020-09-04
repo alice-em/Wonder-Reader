@@ -156,7 +156,7 @@
     "cross-env": "5.1.6",
     "cross-spawn": "6.0.5",
     "css-loader": "0.28.11",
-    "decompress": "4.2.0",
+    "decompress": "4.2.1",
     "detect-port": "1.2.3",
     "electron": "3.1.13",
     "electron-builder": "22.6.1",
