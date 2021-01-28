@@ -158,7 +158,7 @@
     "css-loader": "0.28.11",
     "decompress": "4.2.0",
     "detect-port": "1.2.3",
-    "electron": "3.1.13",
+    "electron": "9.4.0",
     "electron-builder": "22.6.1",
     "electron-devtools-installer": "3.0.0",
     "electron-rebuild": "1.11.0",
